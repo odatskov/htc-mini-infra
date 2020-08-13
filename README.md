@@ -1,6 +1,6 @@
 # Mini HTCondor Infrastructure Deployment
 
-Here we have a lonely Docker compose file that brings up HTCondor cm/schedd, worker and a submit node.
+Here we have a lonely Docker compose file that brings up [mini HTCondor](https://github.com/htcondor/htcondor/tree/master/build/docker/services) cm/schedd, worker and a submit node.
 
 ## Example Usage
 
