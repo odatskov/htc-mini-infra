@@ -1,0 +1,7 @@
+executable              = /bin/hostname
+arguments               = 
+output                  = test.$(ClusterId).$(ProcId).out
+error                   = test.$(ClusterId).$(ProcId).err
+log                     = test.$(ClusterId).log
+
+queue

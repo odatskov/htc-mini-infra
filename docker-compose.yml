@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+
+  schedd:
+    image: "htcondor/cm:8.9.6-el7"
+    ports:
+    - "9618:9618"
+    environment:
+      USE_POOL_PASSWORD: "yes"
+    volumes:
+    - type: bind
+      source: ./pool_password
+      target: /root/secrets/pool_password
+
+  worker:
+    image: "htcondor/execute:8.9.6-el7"
+    deploy:
+      replicas: 1
+    environment:
+      CONDOR_HOST: "schedd"
+      USE_POOL_PASSWORD: "yes"
+    volumes:
+    - type: bind
+      source: ./pool_password
+      target: /root/secrets/pool_password
+
+  submit:
+    image: "htcondor/submit:8.9.6-el7"
+    environment:
+      CONDOR_HOST: "schedd"
+      USE_POOL_PASSWORD: "yes"
+    volumes:
+    - type: bind
+      source: ./pool_password
+      target: /root/secrets/pool_password
+    - type: bind
+      source: ./test.sub
+      target: /home/submituser/test.sub
