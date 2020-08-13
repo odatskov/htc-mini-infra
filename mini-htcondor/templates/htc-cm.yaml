@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: htc-config
+  labels:
+  {{- include "mini-htcondor.labels" . | nindent 4 }}
+data:
+  pool_password: |-
+    BoopBeep
+  test.sub: |-
+    executable = /bin/hostname
+    arguments  =
+    output     = test.$(ClusterId).$(ProcId).out
+    error      = test.$(ClusterId).$(ProcId).err
+    log        = test.$(ClusterId).log
+
+    queue

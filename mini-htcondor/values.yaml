@@ -1,0 +1,92 @@
+# Default values for mini-htcondor.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+#######################
+# HTCondor Images
+##
+images:
+
+  pullPolicy: IfNotPresent
+
+  cm:
+    image: "htcondor/cm"
+    tag:   ""
+    port:  9618
+
+  worker:
+    image: "htcondor/execute"
+    tag: ""
+
+  submit:
+    image: "htcondor/submit"
+    tag: ""
+
+########################
+# Central Manager setup
+##
+cm:
+  enabled: true
+
+########################
+# Execute node setup
+##
+worker:
+  enabled: true
+  replicas: 2
+
+
+########################
+# Submit node setup
+##
+submit:
+  enabled: true
+
+
+## Pod Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+##
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+## Registry containers' resource requests and limits
+## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+##
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+
+## Node labels for assignment. Evaluated as a template.
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
+##
+nodeSelector: {}
+
+## Tolerations for pod assignment
+## ref:
+##
+tolerations: []
+
+## Affinity for pod assignment
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
+##
+affinity: {}

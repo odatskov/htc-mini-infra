@@ -1,0 +1,60 @@
+{{- if .Values.submit.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: htcondor-submit
+  labels:
+  {{- include "mini-htcondor.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+    {{- include "mini-htcondor.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+    {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      labels:
+      {{- include "mini-htcondor.selectorLabels" . | nindent 8 }}
+    spec:
+      securityContext:
+      {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+      - name: htc-vol
+        configMap:
+          name: htc-config
+      containers:
+      - name: schedd
+        securityContext:
+        {{- toYaml .Values.securityContext | nindent 12 }}
+        image: "{{ .Values.images.submit.image }}:{{ .Values.images.submit.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.images.pullPolicy }}
+        env:
+        - name: CONDOR_HOST
+          value: "schedd"
+        - name: USE_POOL_PASSWORD
+          value: "yes"
+        volumeMounts:
+        - mountPath: /root/secrets/pool_password
+          subPath: pool_password
+          name: htc-vol
+        - mountPath: /home/submituser/test.sub
+          subPath: test.sub
+          name: htc-vol
+        resources:
+        {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}
