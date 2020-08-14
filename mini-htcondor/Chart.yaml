@@ -1,0 +1,14 @@
+apiVersion: v2
+
+name: mini-htcondor
+description: A Helm chart for a self-contained infrastructure of HTCondor
+
+type: application
+
+version: 0.1.0
+appVersion: 8.9.6-el7
+
+home: https://research.cs.wisc.edu/htcondor/
+
+sources:
+- https://github.com/htcondor/htcondor
