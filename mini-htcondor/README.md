@@ -1,6 +1,6 @@
 # Self-Contained HTCondor Helm Chart
 
-This folder container a Kubernetes Helm chart for deploying HTCondor central manager, workers and a submit node within the same cluster.
+This folder contains a Kubernetes Helm chart used for deploying HTCondor central manager, workers and a submit node within the same cluster.
 
 ## Chart Details
 
