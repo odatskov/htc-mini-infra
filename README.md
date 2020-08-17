@@ -6,7 +6,7 @@ Here we have Kubernetes and Docker Swarm approaches for deploying a self-contain
 
 The _mini-htcondor_ chart provides a minimal default setup of HTCondor central manager and workers. Resources deployed by the chart are shown in the diagram below.
 
-![overview](.overview.png)
+![overview](https://raw.githubusercontent.com/odatskov/diagrams/master/htc-mini-infra.png)
 
 ### Usage
 
